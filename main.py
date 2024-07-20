@@ -9,7 +9,7 @@ email: ok1vbr@gmail.com
 discord: radarixos
 
 """
-# rev 0.2rc
+# rev0.3rc
 # godblessai4help
 
 import sys
@@ -85,8 +85,8 @@ def analyze_text(text):
     sum_of_numbers = sum(int(word) for word in cleaned_words if word.isdigit())
 
     print(f"There are {num_words} words in the selected text.")
-    print(f"There are {len(titlecase_words)} titlecase words: {titlecase_words}")
-    print(f"There are {len(uppercase_words)} uppercase words: {uppercase_words}")
+    print(f"There are {len(titlecase_words)} titlecase words.")
+    print(f"There are {len(uppercase_words)} uppercase words.")
     print(f"There are {len(lowercase_words)} lowercase words.")
     print(f"There are {len(numeric_strings)} numeric strings.")
     print(f"The sum of all the numbers is {sum_of_numbers}")
