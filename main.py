@@ -9,9 +9,11 @@ email: ok1vbr@gmail.com
 discord: radarixos
 
 """
-#godblessai4help
+# rev 0.2rc
+# godblessai4help
 
 import sys
+import string
 
 # Users list
 users = {
@@ -21,7 +23,7 @@ users = {
     "liz": "pass123"
 }
 
-# Texts from ext source
+# Texts from external source
 TEXTS = ['''
 Situated about 10 miles west of Kemmerer,
 Fossil Butte is a ruggedly impressive
@@ -31,7 +33,7 @@ to an elevation of more than 7500 feet
 above sea level. The butte is located just
 north of US 30N and the Union Pacific Railroad,
 which traverse the valley. ''',
-'''At the base of Fossil Butte are the bright
+         '''At the base of Fossil Butte are the bright
 red, purple, yellow and gray beds of the Wasatch
 Formation. Eroded portions of these horizontal
 beds slope gradually upward from the valley floor
@@ -39,7 +41,7 @@ and steepen abruptly. Overlying them and extending
 to the top of the butte are the much steeper
 buff-to-white beds of the Green River Formation,
 which are about 300 feet thick.''',
-'''The monument contains 8198 acres and protects
+         '''The monument contains 8198 acres and protects
 a portion of the largest deposit of freshwater fish
 fossils in the world. The richest fossil fish deposits
 are found in multiple limestone layers, which lie some
@@ -48,14 +50,16 @@ represent several varieties of perch, as well as
 other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.'''
-]
-#
+         ]
+
+
 def authenticate(username, password):
     return users.get(username) == password
 
+
 def get_text_choice():
     try:
-        choice = int(input("Enter a number btw. 1 and 3 to select: "))
+        choice = int(input("Enter a number between 1 and 3 to select: "))
         if choice not in [1, 2, 3]:
             print("Invalid choice, terminating the program...")
             sys.exit()
@@ -64,35 +68,43 @@ def get_text_choice():
         print("Invalid input, terminating the program...")
         sys.exit()
 
+
+def clean_word(word):
+    return word.strip(string.punctuation)
+
+
 def analyze_text(text):
     words = text.split()
-    num_words = len(words)
-    titlecase_words = sum(1 for word in words if word.istitle())
-    uppercase_words = sum(1 for word in words if word.isupper())
-    lowercase_words = sum(1 for word in words if word.islower())
-    numeric_strings = sum(1 for word in words if word.isdigit())
-    sum_of_numbers = sum(int(word) for word in words if word.isdigit())
+    cleaned_words = [clean_word(word) for word in words]
+
+    num_words = len(cleaned_words)
+    titlecase_words = [word for word in cleaned_words if word.istitle()]
+    uppercase_words = [word for word in cleaned_words if word.isupper()]
+    lowercase_words = [word for word in cleaned_words if word.islower()]
+    numeric_strings = [word for word in cleaned_words if word.isdigit()]
+    sum_of_numbers = sum(int(word) for word in cleaned_words if word.isdigit())
 
     print(f"There are {num_words} words in the selected text.")
-    print(f"There are {titlecase_words} titlecase words.")
-    print(f"There are {uppercase_words} uppercase words.")
-    print(f"There are {lowercase_words} lowercase words.")
-    print(f"There are {numeric_strings} numeric strings.")
-    print(f"The sum of all the numbers {sum_of_numbers}")
+    print(f"There are {len(titlecase_words)} titlecase words: {titlecase_words}")
+    print(f"There are {len(uppercase_words)} uppercase words: {uppercase_words}")
+    print(f"There are {len(lowercase_words)} lowercase words.")
+    print(f"There are {len(numeric_strings)} numeric strings.")
+    print(f"The sum of all the numbers is {sum_of_numbers}")
     print("----------------------------------------")
 
     word_lengths = {}
-    for word in words:
+    for word in cleaned_words:
         word_length = len(word)
         if word_length in word_lengths:
             word_lengths[word_length] += 1
         else:
             word_lengths[word_length] = 1
 
-    print("LEN|  OCCURENCES  |NR.")
+    print("LEN|  OCCURRENCES  |NR.")
     print("----------------------------------------")
     for length in sorted(word_lengths):
         print(f"{length:3}|{'*' * word_lengths[length]:<13}|{word_lengths[length]}")
+
 
 def main():
     username = input("username: ")
@@ -108,6 +120,7 @@ def main():
         analyze_text(text)
     else:
         print("unregistered user, terminating the program..")
+
 
 if __name__ == "__main__":
     main()
