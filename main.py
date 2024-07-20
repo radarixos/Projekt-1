@@ -100,10 +100,17 @@ def analyze_text(text):
         else:
             word_lengths[word_length] = 1
 
-    print("LEN|    OCCURRENCES     |NR.")
+    maxstars = 15
+
+    print(f"{'LEN':<3}| {'OCCURRENCES':<{maxstars}} |NR.")
     print("----------------------------------------")
     for length in sorted(word_lengths):
-        print(f"{length:3}| {'*' * word_lengths[length]:<18} |{word_lengths[length]}")
+        occurrences = word_lengths[length]
+        if occurrences > maxstars:
+            stars = '*' * (maxstars - 1) + '+'
+        else:
+            stars = '*' * occurrences
+        print(f"{length:<3}| {stars:<{maxstars}} |{word_lengths[length]}")
 
 
 def main():
