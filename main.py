@@ -7,7 +7,7 @@ email: ok1vbr@gmail.com
 
 discord: radarixos
 """
-# ver 0.5
+# ver 0.6rc
 # tnxai!
 
 import sys
