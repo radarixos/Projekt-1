@@ -1,5 +1,4 @@
 """
-
 projekt_1.py: první projekt do Engeto Online Python Akademie
 
 author: Radek Svejda
@@ -7,7 +6,6 @@ author: Radek Svejda
 email: ok1vbr@gmail.com
 
 discord: radarixos
-
 """
 # ver 0.5
 # tnxai!
@@ -73,14 +71,22 @@ def clean_word(word):
     return word.strip(string.punctuation)
 
 
+def is_lowercase(word):
+    return word.islower() or (any(char.isdigit() for char in word) and any(char.isupper() for char in word))
+
+
+def is_titlecase(word):
+    return word.istitle() and not any(char.isupper() for char in word[1:])
+
+
 def analyze_text(text):
     words = text.split()
     cleaned_words = [clean_word(word) for word in words]
 
     num_words = len(cleaned_words)
-    titlecase_words = [word for word in cleaned_words if word.istitle()]
-    uppercase_words = [word for word in cleaned_words if word.isupper()]
-    lowercase_words = [word for word in cleaned_words if word.islower()]
+    titlecase_words = [word for word in cleaned_words if is_titlecase(word)]
+    uppercase_words = [word for word in cleaned_words if word.isupper() and word.isalpha()]
+    lowercase_words = [word for word in cleaned_words if is_lowercase(word)]
     numeric_strings = [word for word in cleaned_words if word.isdigit()]
     sum_of_numbers = sum(int(word) for word in cleaned_words if word.isdigit())
 
