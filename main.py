@@ -7,7 +7,7 @@ email: ok1vbr@gmail.com
 
 discord: radarixos
 """
-# ver 0.6rc
+# ver 0.7
 # tnxai!
 
 import sys
@@ -74,9 +74,13 @@ def clean_word(word):
 def is_lowercase(word):
     return word.islower() or (any(char.isdigit() for char in word) and any(char.isupper() for char in word))
 
-
+# US a 30N issue
 def is_titlecase(word):
-    return word.istitle() and not any(char.isupper() for char in word[1:])
+    if len(word) > 1:
+        return word[0].isupper() or word[1].isupper()
+    elif len(word) == 1:
+        return word[0].isupper()
+    return False
 
 
 def analyze_text(text):
